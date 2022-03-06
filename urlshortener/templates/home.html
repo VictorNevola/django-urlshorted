@@ -1,0 +1,41 @@
+{% extends './base.html' %} {% block body %}
+<div class="container">
+  <div class="card mt-5">
+    <div class="card-header text-center py-3">
+      <h1>Encurtador de URL</h1>
+    </div>
+    <div class="px-3 pt-4">
+      <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        <div class="d-lg-flex g-1">
+          <div class="col-lg-10 pe-lg-3 mb-4">{{form.long_url}}</div>
+          <div class="col-lg-2">
+            <button class="btn btn-success btn-lg w-100" type="submit">
+              Aplicar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% if errors %}
+  <div class="alert alert-danger mt-4" role="alert">
+    <p>{{errors}}</p>
+  </div>
+  {% endif %}
+  {% if new_url %}
+  <div class="mx-auto text-center mt-3">
+    <figcaption class="blockquote-footer mt-2">
+      Você pode copiar o link abaixo e compartilhá-lo com seus amigos
+    </figcaption>
+    <p class="d-flex text-center justify-content-center">
+      {{new_url}}
+    </p>
+    <p class="d-flex justify-content-center">
+      <span class="text-danger me-3">Original URL :</span>
+      {{long_url}}
+    </p>
+  </div>
+  {% endif %}
+</div>
+{% endblock body %}
